@@ -71,8 +71,11 @@ class LessonUser(models.Model):
         VIEWED = 'viewed'
         NOT_VIEWED = 'not_viewed'
 
-    lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE)
+    lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE, related_name='lessonuser_set')
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     viewed_time = models.IntegerField(default=0)
     status = models.CharField(max_length=10, choices=LessonViewChoices, default=LessonViewChoices.NOT_VIEWED)
     last_viewed = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"{self.lesson}-{self.user}"

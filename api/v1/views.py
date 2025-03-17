@@ -39,7 +39,7 @@ class ListLessonsForProduct(generics.ListAPIView):
         user = self.request.user
 
         # Get lessons for the given product
-        lessons = Lesson.objects.filter(products=product_id) \
+        lessons = Lesson.objects.filter(products__access=user.id, products=product_id) \
             .prefetch_related(
                 Prefetch(
                     'lessonuser_set',
